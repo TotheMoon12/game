@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- <link rel="stylesheet" href="style/style.css"> -->
+    <title>Game</title>
+    <style>
+        h1 {
+            padding: auto;
+            margin: auto;
+            text-align: center;
+        }
+
+        #board {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <script>
+        var cardNum = 12;
+        function addRow(x) {
+            $("thead").html("<tr><th colspan=" + '"4"' + ">Card Game</th></tr>");
+            for (var i = 0; i < x; ++i) {
+                var newRow = "<tr id=" + '"' + i + '"' + "></tr>";
+                $("tbody").append(newRow);
+                for (var j = 0; j < x; ++j) {
+                    $("#" + i).append("<td id=" + '"' + i + "" + j + '"' + "></td>");
+                }
+            }
+        }
+
+        function selectImage(flag, selectingNum) {
+            var count = 0;
+            for (var i = 0; i < cardNum; ++i) {
+                flag[i] = "0";
+            }
+            console.log(flag);
+            while (count < selectingNum) {
+                var ran = Math.floor(Math.random() * 12 + 1);
+                if (flag[ran] == 0) {
+                    flag[ran] = 1;
+                    ++count;
+                }
+            }
+
+
+            return flag;
+        }
+
+        function makeImageArray(data, flag) {
+            var dataNum = data.length;
+            var temp = new Array(dataNum / 2);
+            var count = 0;
+
+            for (var i = 0; i < flag.length; ++i) {
+                console.log(i);
+                if (flag[i] == 1) {
+                    temp[count] = "<img src=" + '"images/' + i + ".png" + '"' + "width=100 height= 100>";
+                    ++count;
+                }
+            }
+
+            for (var i = 0; i < dataNum; i = i + 2) {
+                data[i] = temp[i / 2];
+                data[i + 1] = temp[i / 2];
+            }
+        }
+        function shuffle(arr) {
+            var num = 20;
+            var temp;
+            for (var i = 0; i < num; ++i) {
+                for (var j = 0; arr.length; ++j) {
+                    var ran = Math.floor(Math.random() * 8);
+                    temp = arr[i];
+                    arr[i] = arr[ran];
+                    arr[ran] = arr[temp];
+                }
+            }
+        }
+
+        function addImage(boardSize) {
+            var flag = new Array(cardNum);
+            var data = new Array(16);
+            var count = 0;
+
+            selectImage(flag, cardNum);
+            //console.log(flag);
+
+            /*
+            makeImageArray(data, flag);
+            shuffle(data);
+
+            for (var i = 0; i < boardSize; ++i) {
+                for (var j = 0; j < boardSize; ++j) {
+                    $('#' + i + "" + j).html(data[count++]);
+                }
+            }
+            */
+        }
+
+        $(document).ready(function () {
+            var table = "<table border=" + '"1"' + "><thead></thead><tbody></tbody></table>";
+            $("#board").html(table);
+            addRow(4);
+            addImage(4);
+        }
+        );
+    </script>
+</head>
+
+<body>
+    <h1>Game</h1>
+    <div id="board">
+
+    </div>
+</body>
+
+</html>
