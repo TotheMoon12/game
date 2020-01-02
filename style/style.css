@@ -1,1 +1,7 @@
-@import "reset.css";
+th {
+    background-color: lemonchiffon;
+}
+
+table {
+    border: rgba(211, 115, 190, 0.822);
+}
